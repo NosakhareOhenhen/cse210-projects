@@ -86,7 +86,7 @@ class Program
             Console.WriteLine("Length (seconds): " + video.LengthInSeconds);
             Console.WriteLine("Number of Comments: " + video.GetCommentCount());
             Console.WriteLine("Comments:");
-            foreach (var comment in video.GetComments())
+            foreach (var comment in vid eo.GetComments())
             {
                 Console.WriteLine($"  - {comment.CommenterName}: {comment.Text}");
             }
