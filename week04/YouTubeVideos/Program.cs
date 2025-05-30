@@ -1,31 +1,32 @@
 using System;
 using System.Collections.Generic;
 
+// Comment class to track commenter name and text
 public class Comment
 {
     public string CommenterName { get; set; }
-    public string Text { get; set; }
+    public string CommentText { get; set; }
 
-    public Comment(string commenterName, string text)
+    public Comment(string commenterName, string commentText)
     {
         CommenterName = commenterName;
-        Text = text;
+        CommentText = commentText;
     }
 }
 
+// Video class to track video information and comments
 public class Video
 {
     public string Title { get; set; }
     public string Author { get; set; }
     public int LengthInSeconds { get; set; }
-    private List<Comment> Comments { get; set; }
+    private List<Comment> Comments { get; } = new List<Comment>();
 
     public Video(string title, string author, int lengthInSeconds)
     {
         Title = title;
         Author = author;
         LengthInSeconds = lengthInSeconds;
-        Comments = new List<Comment>();
     }
 
     public void AddComment(Comment comment)
@@ -38,9 +39,9 @@ public class Video
         return Comments.Count;
     }
 
-    public List<Comment> GetComments()
+    public List<Comment> GetAllComments()
     {
-        return Comments;
+        return new List<Comment>(Comments);
     }
 }
 
@@ -48,47 +49,50 @@ class Program
 {
     static void Main(string[] args)
     {
-        // Create 4 videos
-        Video video1 = new Video("Python Programming Basics", "Uwa  Gold", 3600);
-        Video video2 = new Video("JavaScript Crash Course", "Erica Ogbe, 2700);
-        Video video3 = new Video("C# Tutorial for Beginners", "Soso Rash", 4500);
-        Video video4 = new Video("Web Design Tips", "Sweet Precious ", 1800);
+        // Create 3-4 videos
+        var video1 = new Video("C# Tutorial for Beginners", "Programming Guru", 720);
+        var video2 = new Video("Learn Python in 10 Minutes", "Code Master", 600);
+        var video3 = new Video("Building Web Apps with ASP.NET", "Web Dev Pro", 900);
+        var video4 = new Video("Machine Learning Basics", "AI Explorer", 1200);
 
-        // Add 3-4 comments to each video
-        video1.AddComment(new Comment("Massive doll", "Great tutorial, thanks!"));
-        video1.AddComment(new Comment("Cue", "Very clear explanation."));
-        video1.AddComment(new Comment("Charlie", "Can you do more advanced topics?"));
-        video1.AddComment(new Comment("Ik", "Loved the examples!"));
+        // Add comments to video1
+        video1.AddComment(new Comment("JohnDoe", "Great tutorial! Very helpful."));
+        video1.AddComment(new Comment("JaneSmith", "I finally understand classes now."));
+        video1.AddComment(new Comment("MikeJohnson", "Could you make one about inheritance?"));
 
-        video2.AddComment(new Comment("Emeka", "Helpful for beginners."));
-        video2.AddComment(new Comment("ogie", "Nice pacing."));
-        video2.AddComment(new Comment("Grace", "Looking forward to part 2."));
+        // Add comments to video2
+        video2.AddComment(new Comment("PythonFan", "Python is so much easier than C++"));
+        video2.AddComment(new Comment("BeginnerCoder", "This was exactly what I needed!"));
+        video2.AddComment(new Comment("TechEnthusiast", "Short and to the point. Love it!"));
 
-        video3.AddComment(new Comment("Efeosa", "Excellent content!"));
-        video3.AddComment(new Comment("Ivy", "Very detailed."));
-        video3.AddComment(new Comment("ovo", "Great teacher!"));
-        video3.AddComment(new Comment("ovie", "More exercises please."));
+        // Add comments to video3
+        video3.AddComment(new Comment("WebDevNewbie", "ASP.NET seems powerful but complex"));
+        video3.AddComment(new Comment("DotNetExpert", "Good overview of the framework"));
+        video3.AddComment(new Comment("Designer123", "Would love to see more UI examples"));
 
-        video4.AddComment(new Comment("Sade", "Good design tips."));
-        video4.AddComment(new Comment("chijoke, "Very useful."));
-        video4.AddComment(new Comment("Omons", "Clear and concise."));
+        // Add comments to video4
+        video4.AddComment(new Comment("DataScientist", "Clear explanation of ML concepts"));
+        video4.AddComment(new Comment("Student2023", "What libraries would you recommend for beginners?"));
+        video4.AddComment(new Comment("AIResearcher", "Nice introduction to the field"));
 
-        // Store videos in a list
-        List<Video> videos = new List<Video> { video1, video2, video3, video4 };
+        // Put videos in a list
+        var videos = new List<Video> { video1, video2, video3, video4 };
 
-        // Iterate through the list and display details
-        foreach (Video video in videos)
+        // Iterate through videos and display information
+        foreach (var video in videos)
         {
             Console.WriteLine($"Title: {video.Title}");
             Console.WriteLine($"Author: {video.Author}");
             Console.WriteLine($"Length: {video.LengthInSeconds} seconds");
             Console.WriteLine($"Number of Comments: {video.GetNumberOfComments()}");
+
             Console.WriteLine("Comments:");
-            foreach (Comment comment in video.GetComments())
+            foreach (var comment in video.GetAllComments())
             {
-                Console.WriteLine($"- {comment.CommenterName}: {comment.Text}");
+                Console.WriteLine($"- {comment.CommenterName}: {comment.CommentText}");
             }
-            Console.WriteLine(); // Blank line for readability between videos
+
+            Console.WriteLine(); // Add blank line between videos
         }
     }
 }
