@@ -1,0 +1,96 @@
+using System;
+using System.Collections.Generic;
+
+class Comment
+{
+    public string CommenterName { get; private set; }
+    public string Text { get; private set; }
+
+    public Comment(string commenterName, string text)
+    {
+        CommenterName = commenterName;
+        Text = text;
+    }
+}
+
+class Video
+{
+    public string Title { get; private set; }
+    public string Author { get; private set; }
+    public int LengthInSeconds { get; private set; }
+    private List<Comment> comments;
+
+    public Video(string title, string author, int lengthInSeconds)
+    {
+        Title = title;
+        Author = author;
+        LengthInSeconds = lengthInSeconds;
+        comments = new List<Comment>();
+    }
+
+    public void AddComment(Comment comment)
+    {
+        comments.Add(comment);
+    }
+
+    public int GetCommentCount()
+    {
+        return comments.Count;
+    }
+
+    public List<Comment> GetComments()
+    {
+        return comments;
+    }
+}
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        List<Video> videos = new List<Video>();
+
+        // Video 1
+        Video video1 = new Video("How to Bake a Cake", "Jane Doe", 300);
+        video1.AddComment(new Comment("Alice", "Great recipe, thanks!"));
+        video1.AddComment(new Comment("Bob", "Tried it and loved it."));
+        video1.AddComment(new Comment("Carol", "Can I use almond flour instead?"));
+        videos.Add(video1);
+
+        // Video 2
+        Video video2 = new Video("Top 10 Programming Languages in 2025", "CodeMaster", 600);
+        video2.AddComment(new Comment("Dave", "Python forever!"));
+        video2.AddComment(new Comment("Eve", "Why isn't Ruby on the list?"));
+        video2.AddComment(new Comment("Frank", "Great video as always."));
+        videos.Add(video2);
+
+        // Video 3
+        Video video3 = new Video("Beginner Yoga Routine", "YogaWithAnna", 900);
+        video3.AddComment(new Comment("Grace", "Very relaxing, thank you."));
+        video3.AddComment(new Comment("Henry", "Day 3 and I already feel better."));
+        video3.AddComment(new Comment("Isla", "Can you do a session for seniors?"));
+        videos.Add(video3);
+
+        // Video 4
+        Video video4 = new Video("Unboxing the Latest iPhone", "TechReviewGuy", 420);
+        video4.AddComment(new Comment("Jack", "So sleek and beautiful!"));
+        video4.AddComment(new Comment("Karen", "Too expensive for me."));
+        video4.AddComment(new Comment("Liam", "Can't wait to get mine."));
+        videos.Add(video4);
+
+        // Display all video info
+        foreach (var video in videos)
+        {
+            Console.WriteLine("Title: " + video.Title);
+            Console.WriteLine("Author: " + video.Author);
+            Console.WriteLine("Length (seconds): " + video.LengthInSeconds);
+            Console.WriteLine("Number of Comments: " + video.GetCommentCount());
+            Console.WriteLine("Comments:");
+            foreach (var comment in video.GetComments())
+            {
+                Console.WriteLine($"  - {comment.CommenterName}: {comment.Text}");
+            }
+            Console.WriteLine(new string('-', 40));
+        }
+    }
+}
